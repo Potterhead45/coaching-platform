@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String             @id @default(cuid())
+  name        String
+  email       String             @unique
+  password    String
+  role        String             @default("STUDENT") // STUDENT, ADMIN, FACULTY
+  phone       String?
+  status      String             @default("ACTIVE")  // ACTIVE, BLOCKED
+  avatar      String?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  attempts    TestAttempt[]
+  payments    Payment[]
+  enrollments CourseEnrollment[]
+}
+
+model Course {
+  id          String             @id @default(cuid())
+  title       String
+  slug        String             @unique
+  description String
+  targetExam  String             // e.g. "JEE Advanced", "NEET-UG", "Class 12 Boards", "UPSC GS"
+  thumbnail   String?
+  isFeatured  Boolean            @default(false)
+  price       Float              @default(0)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  chapters    Chapter[]
+  mockTests   MockTest[]
+  enrollments CourseEnrollment[]
+  payments    Payment[]
+}
+
+model Chapter {
+  id            String     @id @default(cuid())
+  courseId      String
+  title         String
+  chapterNumber Int        @default(1)
+  description   String?
+  notes         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  course        Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  mockTests     MockTest[]
+}
+
+model MockTest {
+  id              String        @id @default(cuid())
+  title           String
+  slug            String        @unique
+  description     String
+  courseId        String?
+  chapterId       String?
+  category        String        @default("Full Mock") // "Full Mock", "Chapter Test", "Diagnostic", "Topic Test"
+  durationMinutes Int           @default(60)
+  totalMarks      Float         @default(100)
+  positiveMarks   Float         @default(4)
+  negativeMarks   Float         @default(1)
+  passingMarks    Float         @default(40)
+  isPublished     Boolean       @default(true)
+  isFree          Boolean       @default(false)
+  price           Float         @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  course          Course?       @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  chapter         Chapter?      @relation(fields: [chapterId], references: [id], onDelete: SetNull)
+  questions       Question[]
+  attempts        TestAttempt[]
+  payments        Payment[]
+}
+
+model Question {
+  id             String          @id @default(cuid())
+  mockTestId     String
+  questionText   String
+  questionType   String          @default("SINGLE_CHOICE") // SINGLE_CHOICE, MULTIPLE_CHOICE, NUMERICAL
+  imageUrl       String?
+  positiveMarks  Float           @default(4)
+  negativeMarks  Float           @default(1)
+  explanation    String          // Detailed step-by-step solution
+  orderIndex     Int             @default(0)
+  subject        String          @default("General") // e.g. "Physics", "Chemistry", "Mathematics", "Biology"
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  mockTest       MockTest        @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  options        Option[]
+  studentAnswers StudentAnswer[]
+}
+
+model Option {
+  id          String   @id @default(cuid())
+  questionId  String
+  optionLabel String   // "A", "B", "C", "D"
+  optionText  String
+  isCorrect   Boolean  @default(false)
+  orderIndex  Int      @default(0)
+
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model TestAttempt {
+  id                String          @id @default(cuid())
+  userId            String
+  mockTestId        String
+  score             Float           @default(0)
+  totalMarks        Float           @default(0)
+  accuracy          Float           @default(0)
+  correctCount      Int             @default(0)
+  incorrectCount    Int             @default(0)
+  unattemptedCount  Int             @default(0)
+  timeSpentSeconds  Int             @default(0)
+  status            String          @default("SUBMITTED") // IN_PROGRESS, SUBMITTED, TIMED_OUT
+  startedAt         DateTime        @default(now())
+  submittedAt       DateTime?
+  createdAt         DateTime        @default(now())
+
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mockTest          MockTest        @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  answers           StudentAnswer[]
+}
+
+model StudentAnswer {
+  id                 String      @id @default(cuid())
+  testAttemptId      String
+  questionId         String
+  selectedOptionId   String?
+  numericalAnswer    String?
+  isCorrect          Boolean     @default(false)
+  marksAwarded       Float       @default(0)
+  timeSpentSeconds   Int         @default(0)
+  isMarkedForReview  Boolean     @default(false)
+  createdAt          DateTime    @default(now())
+
+  testAttempt        TestAttempt @relation(fields: [testAttemptId], references: [id], onDelete: Cascade)
+  question           Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model CourseEnrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+}
+
+model Payment {
+  id            String    @id @default(cuid())
+  orderId       String    @unique
+  userId        String
+  mockTestId    String?
+  courseId      String?
+  amount        Float
+  currency      String    @default("INR")
+  gateway       String    @default("SANDBOX") // SANDBOX, RAZORPAY, STRIPE
+  paymentId     String?   // Gateway reference ID
+  status        String    @default("COMPLETED") // COMPLETED, PENDING, FAILED
+  invoiceNumber String    @unique
+  createdAt     DateTime  @default(now())
+
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mockTest      MockTest? @relation(fields: [mockTestId], references: [id], onDelete: SetNull)
+  course        Course?   @relation(fields: [courseId], references: [id], onDelete: SetNull)
+}
+
+model Inquiry {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  phone          String?
+  courseInterest String?
+  message        String
+  status         String   @default("NEW") // NEW, CONTACTED, RESOLVED
+  createdAt      DateTime @default(now())
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
