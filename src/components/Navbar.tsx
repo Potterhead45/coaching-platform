@@ -211,7 +211,7 @@ export default function Navbar({ user }: NavbarProps) {
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-brand-600 text-white"
+                  className="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-[#0A2540] text-white"
                 >
                   Student Dashboard
                 </Link>
@@ -227,16 +227,16 @@ export default function Navbar({ user }: NavbarProps) {
                 <Link
                   href="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-center px-4 py-2 rounded-lg text-sm font-medium border border-slate-200 text-slate-700"
+                  className="text-center px-4 py-2 rounded-lg text-sm font-semibold border border-slate-300 text-slate-700 hover:bg-slate-50"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-center px-4 py-2 rounded-lg text-sm font-semibold bg-brand-600 text-white"
+                  className="text-center px-4 py-2 rounded-lg text-sm font-semibold bg-[#0A2540] text-white hover:bg-blue-800"
                 >
-                  Register
+                  Enroll Free
                 </Link>
               </div>
             )}
