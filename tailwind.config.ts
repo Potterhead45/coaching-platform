@@ -9,37 +9,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        theme: {
+          dark: '#003135',
+          teal: '#024950',
+          rust: '#964734',
+          cyan: '#0FA4AF',
+          ice: '#AFDDE5',
+        },
         brand: {
-          50: "#f0f7ff",
-          100: "#e0effe",
-          200: "#bae0fd",
-          300: "#7cc5fb",
-          400: "#38a6f6",
-          500: "#0284c7",
-          600: "#0369a1", // Academic Deep Cyan/Blue
-          700: "#075985",
-          800: "#0c4a6e", // Oxford Navy
-          900: "#082f49", // Midnight Academic Navy
-          950: "#041a2c",
+          50: '#F2FAFB',
+          100: '#AFDDE5', // Soft Ice Mint (#AFDDE5)
+          200: '#80CAD4',
+          300: '#4EB3C0',
+          400: '#0FA4AF', // Vibrant Cyan (#0FA4AF)
+          500: '#097E88',
+          600: '#024950', // Rich Ocean Teal (#024950)
+          700: '#023C42',
+          800: '#003135', // Deep Base Teal (#003135)
+          900: '#002629',
+          950: '#001A1C',
         },
-        navy: {
-          50: "#f8fafc",
-          100: "#f1f5f9",
-          200: "#e2e8f0",
-          700: "#334155",
-          800: "#1e293b",
-          900: "#0f172a",
-          950: "#020617",
-        },
-        gold: {
-          50: "#fffbeb",
-          100: "#fef3c7",
-          200: "#fde68a",
-          300: "#fcd34d",
-          400: "#fbbf24",
-          500: "#f59e0b",
-          600: "#d97706",
-          700: "#b45309",
+        rust: {
+          50: '#FDF6F4',
+          100: '#FAE8E4',
+          200: '#F3CCC4',
+          300: '#E6A799',
+          400: '#BA5943',
+          500: '#964734', // Terracotta Rust (#964734)
+          600: '#833B2B',
+          700: '#6C2F21',
+          800: '#58251A',
+          900: '#461D15',
         }
       },
     },

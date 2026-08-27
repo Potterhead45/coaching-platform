@@ -33,11 +33,6 @@ export default function Navbar({ user }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
-  // If in CBT test take mode, render a minimal clean header to avoid distraction
-  if (pathname.includes('/take')) {
-    return null;
-  }
-
   const handleLogout = async () => {
     setLoggingOut(true);
     try {
@@ -54,20 +49,20 @@ export default function Navbar({ user }: NavbarProps) {
     { name: 'Home', href: '/' },
     { name: 'Courses & Chapters', href: '/courses' },
     { name: 'Mock Tests', href: '/tests' },
-    { name: 'Testimonials & Results', href: '/#results' },
-    { name: 'Contact & Admissions', href: '/#contact' },
+    { name: 'Results & Ranks', href: '/#results' },
+    { name: 'Admissions', href: '/#contact' },
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/90 backdrop-blur-md">
-      {/* Top Banner Notice */}
-      <div className="bg-slate-900 px-3 py-1.5 text-center text-xs font-medium text-slate-200 flex items-center justify-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap border-b border-slate-800">
-        <span className="inline-flex items-center rounded-full bg-amber-500/15 px-2 py-0.5 text-amber-300 font-semibold border border-amber-500/30 text-[10px] sm:text-xs shrink-0">
-          🎓 Academic Session 2026-27
+    <header className="sticky top-0 z-40 w-full border-b border-[#AFDDE5]/40 bg-white/95 backdrop-blur-md">
+      {/* Top Banner Notice - #003135 with #AFDDE5 and #0FA4AF */}
+      <div className="bg-[#003135] px-3 py-1.5 text-center text-xs font-medium text-[#AFDDE5] flex items-center justify-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap border-b border-[#024950]">
+        <span className="inline-flex items-center rounded-full bg-[#0FA4AF]/20 px-2 py-0.5 text-[#AFDDE5] font-semibold border border-[#0FA4AF]/40 text-[10px] sm:text-xs shrink-0">
+          ✨ Academic Session 2026-27
         </span>
-        <span className="hidden sm:inline text-slate-300">All-India CBT Mock Test Series with Automated Error Solutions</span>
-        <a href="tel:+919876543210" className="hidden md:inline-flex items-center gap-1 text-amber-300 hover:text-amber-200 ml-3 font-semibold shrink-0">
-          <PhoneCall className="w-3 h-3 text-amber-400" /> Helpline: +91 98765 43210
+        <span className="hidden sm:inline text-[#AFDDE5]">All-India CBT Mock Test Series with Automated Error Explanations</span>
+        <a href="tel:+919876543210" className="hidden md:inline-flex items-center gap-1 text-[#0FA4AF] hover:text-[#AFDDE5] ml-3 font-semibold shrink-0">
+          <PhoneCall className="w-3 h-3 text-[#0FA4AF]" /> Helpline: +91 98765 43210
         </a>
       </div>
 
@@ -75,16 +70,16 @@ export default function Navbar({ user }: NavbarProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-white shadow-md shadow-slate-900/20 group-hover:bg-brand-900 transition-colors">
-              <GraduationCap className="w-5 h-5 text-amber-400" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#003135] to-[#024950] border border-[#0FA4AF]/30 flex items-center justify-center text-[#AFDDE5] shadow-md shadow-[#003135]/20 group-hover:scale-105 transition-transform">
+              <GraduationCap className="w-5 h-5 text-[#0FA4AF]" />
             </div>
             <div>
-              <span className="text-lg font-extrabold tracking-tight text-slate-900 flex items-center gap-1.5">
+              <span className="text-lg font-extrabold tracking-tight text-[#003135] flex items-center gap-1.5">
                 Apex Institute
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 uppercase tracking-wider">Edu</span>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#AFDDE5]/40 text-[#024950] border border-[#0FA4AF]/20 uppercase tracking-wider">CBT</span>
               </span>
-              <span className="block text-[11px] font-medium text-slate-500 -mt-1">
-                Centre for Academic Excellence & CBT Tests
+              <span className="block text-[11px] font-medium text-[#024950]/70 -mt-1">
+                Examination & Academic Prep Hub
               </span>
             </div>
           </Link>
@@ -99,8 +94,8 @@ export default function Navbar({ user }: NavbarProps) {
                   href={link.href}
                   className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
-                      ? 'text-brand-900 bg-brand-50 font-bold'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'text-[#003135] bg-[#AFDDE5]/30 font-bold border border-[#AFDDE5]'
+                      : 'text-[#024950] hover:text-[#003135] hover:bg-[#AFDDE5]/15'
                   }`}
                 >
                   {link.name}
@@ -116,31 +111,31 @@ export default function Navbar({ user }: NavbarProps) {
                 {user.role === 'ADMIN' ? (
                   <Link
                     href="/admin"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#964734]/10 text-[#964734] border border-[#964734]/30 hover:bg-[#964734]/20 transition-colors"
                   >
-                    <ShieldCheck className="w-4 h-4 text-amber-600" />
+                    <ShieldCheck className="w-4 h-4 text-[#964734]" />
                     Admin Panel
                   </Link>
                 ) : null}
 
                 <Link
                   href="/dashboard"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-slate-900 hover:bg-brand-900 text-white shadow-sm transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-[#024950] hover:bg-[#003135] text-white shadow-sm transition-colors"
                 >
-                  <LayoutDashboard className="w-4 h-4 text-amber-400" />
-                  Student Dashboard
+                  <LayoutDashboard className="w-4 h-4 text-[#0FA4AF]" />
+                  Dashboard
                 </Link>
 
                 <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
                   <div className="text-right">
-                    <p className="text-xs font-bold text-slate-800 leading-tight">{user.name.split(' ')[0]}</p>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-wider">{user.role}</p>
+                    <p className="text-xs font-bold text-[#003135] leading-tight">{user.name.split(' ')[0]}</p>
+                    <p className="text-[10px] text-[#024950]/70 uppercase tracking-wider">{user.role}</p>
                   </div>
                   <button
                     onClick={handleLogout}
                     disabled={loggingOut}
                     title="Logout"
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-[#964734] hover:bg-[#964734]/10 transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
@@ -150,16 +145,16 @@ export default function Navbar({ user }: NavbarProps) {
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="px-4 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                  className="px-4 py-2 rounded-lg text-sm font-semibold text-[#024950] hover:text-[#003135] hover:bg-[#AFDDE5]/20 transition-colors"
                 >
-                  Student Login
+                  Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-slate-900 hover:bg-brand-900 text-white shadow-sm transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold bg-[#964734] hover:bg-[#833B2B] text-white shadow-md shadow-[#964734]/25 transition-all hover:scale-[1.02]"
                 >
                   <span>Enroll Free</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#AFDDE5]" />
                 </Link>
               </div>
             )}
@@ -169,9 +164,9 @@ export default function Navbar({ user }: NavbarProps) {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+              className="p-2 rounded-lg text-[#024950] hover:text-[#003135] hover:bg-[#AFDDE5]/20"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-[#024950]" />}
             </button>
           </div>
         </div>
@@ -179,14 +174,14 @@ export default function Navbar({ user }: NavbarProps) {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-3">
+        <div className="md:hidden border-b border-[#AFDDE5]/50 bg-white px-4 pt-2 pb-6 space-y-3">
           <div className="space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50"
+                className="block px-3 py-2 rounded-lg text-base font-medium text-[#024950] hover:bg-[#AFDDE5]/20"
               >
                 {link.name}
               </Link>
@@ -196,15 +191,15 @@ export default function Navbar({ user }: NavbarProps) {
           <div className="pt-4 border-t border-slate-100 space-y-2">
             {user ? (
               <>
-                <div className="px-3 py-2 bg-slate-50 rounded-lg">
-                  <p className="text-sm font-semibold text-slate-800">{user.name}</p>
-                  <p className="text-xs text-slate-500">{user.email}</p>
+                <div className="px-3 py-2 bg-[#AFDDE5]/20 rounded-lg">
+                  <p className="text-sm font-bold text-[#003135]">{user.name}</p>
+                  <p className="text-xs text-[#024950]/80">{user.email}</p>
                 </div>
                 {user.role === 'ADMIN' && (
                   <Link
                     href="/admin"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-amber-100 text-amber-900"
+                    className="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-bold bg-[#964734]/15 text-[#964734]"
                   >
                     Admin Control Center
                   </Link>
@@ -212,13 +207,13 @@ export default function Navbar({ user }: NavbarProps) {
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-[#0A2540] text-white"
+                  className="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-bold bg-[#024950] text-white"
                 >
                   Student Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-red-600 hover:bg-red-50"
+                  className="block w-full text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-[#964734] hover:bg-[#964734]/10"
                 >
                   Logout
                 </button>
@@ -228,14 +223,14 @@ export default function Navbar({ user }: NavbarProps) {
                 <Link
                   href="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-center px-4 py-2 rounded-lg text-sm font-semibold border border-slate-300 text-slate-700 hover:bg-slate-50"
+                  className="text-center px-4 py-2 rounded-lg text-sm font-semibold border border-[#AFDDE5] text-[#024950] hover:bg-[#AFDDE5]/20"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-center px-4 py-2 rounded-lg text-sm font-semibold bg-[#0A2540] text-white hover:bg-blue-800"
+                  className="text-center px-4 py-2 rounded-lg text-sm font-bold bg-[#964734] text-white hover:bg-[#833B2B]"
                 >
                   Enroll Free
                 </Link>
