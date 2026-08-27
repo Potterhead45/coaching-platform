@@ -14,7 +14,8 @@ import {
   X,
   User as UserIcon,
   Sparkles,
-  PhoneCall
+  PhoneCall,
+  ArrowRight
 } from 'lucide-react';
 
 interface NavbarProps {
