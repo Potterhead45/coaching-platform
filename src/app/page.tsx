@@ -67,80 +67,90 @@ export default async function HomePage() {
   return (
     <div className="space-y-20 pb-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-900 via-slate-900 to-slate-950 text-white pt-12 pb-24 lg:pt-20 lg:pb-32">
+      <section className="relative overflow-hidden bg-gradient-to-b from-brand-900 via-slate-900 to-slate-950 text-white pt-8 pb-20 sm:pt-16 sm:pb-28 lg:pt-20 lg:pb-32">
         {/* Background glow effects */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand-500/20 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[600px] h-[300px] bg-brand-500/20 blur-[100px] rounded-full pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-400/20 text-brand-300 text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>India’s Most Advanced Exam Prep & CBT Simulator</span>
+            <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-400/20 text-brand-300 text-xs font-semibold max-w-full">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span className="truncate">India’s Advanced Exam Prep & CBT Simulator</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight sm:leading-[1.15] break-words">
                 Master Any Competitive Exam With <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-indigo-200 to-amber-300">Precision Mock Tests</span>
               </h1>
 
-              <p className="text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Experience the authentic NTA-style online exam interface with strict timers, instant automated scoring, and **deep step-by-step explanations for every incorrect answer**.
+              <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Experience the authentic NTA-style online exam interface with strict timers, instant automated scoring, and <strong>deep step-by-step explanations for every incorrect answer</strong>.
               </p>
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-1">
                 <Link
                   href="/tests"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/30 transition-all hover:scale-105"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/30 transition-all text-sm"
                 >
-                  <Flame className="w-5 h-5 text-amber-300" />
+                  <Flame className="w-4 h-4 text-amber-300" />
                   Take a Free Mock Test
                 </Link>
 
                 <Link
                   href="/courses"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-all text-sm"
                 >
-                  <BookOpen className="w-5 h-5 text-brand-400" />
+                  <BookOpen className="w-4 h-4 text-brand-400" />
                   Explore Courses & Syllabus
                 </Link>
               </div>
 
-              {/* Quick Demo Creds for testing */}
-              <div className="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60 text-xs text-slate-300 inline-block">
-                <span className="font-semibold text-amber-300">⚡ Instant Demo Login:</span> Student:{' '}
-                <code className="text-brand-300 font-mono">student@apexcoaching.com</code> / pass:{' '}
-                <code className="text-brand-300 font-mono">student123</code> | Admin:{' '}
-                <code className="text-amber-300 font-mono">admin@apexcoaching.com</code> / pass:{' '}
-                <code className="text-amber-300 font-mono">admin123</code>
+              {/* Quick Demo Creds for testing - Responsive Card */}
+              <div className="p-3.5 sm:p-4 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 w-full max-w-full text-left space-y-2 overflow-hidden shadow-inner">
+                <div className="font-bold text-amber-300 flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" /> 1-Click Demo Logins (Try on Login Page):
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-700/50">
+                    <span className="text-slate-400 block font-semibold">Student Account:</span>
+                    <code className="text-brand-300 font-mono text-[10px] sm:text-[11px] break-all">student@apexcoaching.com</code>
+                    <span className="text-slate-400 block text-[10px]">pass: student123</span>
+                  </div>
+                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-700/50">
+                    <span className="text-amber-400 block font-semibold">Admin Account:</span>
+                    <code className="text-amber-300 font-mono text-[10px] sm:text-[11px] break-all">admin@apexcoaching.com</code>
+                    <span className="text-slate-400 block text-[10px]">pass: admin123</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Right Card: Live Test Interface Preview */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-2xl bg-slate-800/90 border border-slate-700 p-6 shadow-2xl backdrop-blur-xl">
-                <div className="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-rose-500" />
-                    <span className="w-3 h-3 rounded-full bg-amber-500" />
-                    <span className="w-3 h-3 rounded-full bg-emerald-500" />
-                    <span className="text-xs font-semibold text-slate-300 ml-2">CBT Mock Engine</span>
+            <div className="lg:col-span-5 w-full">
+              <div className="relative rounded-2xl bg-slate-800/90 border border-slate-700 p-4 sm:p-6 shadow-2xl backdrop-blur-xl w-full">
+                <div className="flex items-center justify-between border-b border-slate-700 pb-3 mb-3">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                    <span className="text-xs font-semibold text-slate-300 ml-1.5">CBT Exam Engine</span>
                   </div>
-                  <span className="px-2.5 py-1 rounded bg-red-500/20 text-red-300 text-xs font-mono font-bold border border-red-500/30 flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" /> 00:29:45
+                  <span className="px-2 py-0.5 rounded bg-red-500/20 text-red-300 text-xs font-mono font-bold border border-red-500/30 flex items-center gap-1">
+                    <Clock className="w-3 h-3" /> 00:29:45
                   </span>
                 </div>
 
-                <div className="space-y-4 text-xs">
-                  <div className="bg-slate-900/80 p-3.5 rounded-xl border border-slate-700">
-                    <p className="text-slate-400 font-medium mb-1">Question 03 of 30 • Physics</p>
-                    <p className="text-slate-100 font-semibold text-sm">
+                <div className="space-y-3 text-xs">
+                  <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-700">
+                    <p className="text-slate-400 font-medium text-[11px] mb-1">Question 03 of 30 • Physics</p>
+                    <p className="text-slate-100 font-semibold text-xs sm:text-sm leading-snug">
                       A particle starts from rest with uniform acceleration a = 4 m/s². What is the distance in the 5th second?
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-700 text-slate-300">
                       A) 16 meters
                     </div>
@@ -157,10 +167,10 @@ export default async function HomePage() {
                   </div>
 
                   {/* Feature Pills */}
-                  <div className="pt-2 border-t border-slate-700/80 grid grid-cols-3 gap-2 text-center text-[10px] text-slate-400">
-                    <div className="p-2 bg-slate-900/60 rounded">✓ Auto Grading</div>
-                    <div className="p-2 bg-slate-900/60 rounded">✓ Error Analysis</div>
-                    <div className="p-2 bg-slate-900/60 rounded">✓ AIR Rank Est.</div>
+                  <div className="pt-2 border-t border-slate-700/80 grid grid-cols-3 gap-1.5 text-center text-[10px] text-slate-400">
+                    <div className="p-1.5 bg-slate-900/60 rounded truncate">✓ Auto Grading</div>
+                    <div className="p-1.5 bg-slate-900/60 rounded truncate">✓ Error Analysis</div>
+                    <div className="p-1.5 bg-slate-900/60 rounded truncate">✓ AIR Rank Est.</div>
                   </div>
                 </div>
               </div>
@@ -170,18 +180,18 @@ export default async function HomePage() {
       </section>
 
       {/* Stats Counter Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-16 relative z-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xl flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${stat.color}`}>
-                  <Icon className="w-6 h-6" />
+              <div key={i} className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-xl flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${stat.color}`}>
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">{stat.value}</h3>
-                  <p className="text-xs font-medium text-slate-500">{stat.label}</p>
+                  <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900">{stat.value}</h3>
+                  <p className="text-[11px] sm:text-xs font-medium text-slate-500 leading-tight">{stat.label}</p>
                 </div>
               </div>
             );

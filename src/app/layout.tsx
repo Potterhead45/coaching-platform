@@ -21,9 +21,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} min-h-screen flex flex-col antialiased`}>
+      <body className={`${inter.className} min-h-screen flex flex-col antialiased w-full max-w-full overflow-x-hidden bg-slate-50 text-slate-900`}>
         <Navbar user={user} />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
         <Footer />
       </body>
     </html>

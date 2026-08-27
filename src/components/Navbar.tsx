@@ -60,12 +60,12 @@ export default function Navbar({ user }: NavbarProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/90 backdrop-blur-md">
       {/* Top Banner Notice */}
-      <div className="bg-brand-900 px-4 py-1.5 text-center text-xs font-medium text-brand-100 flex items-center justify-center gap-2">
-        <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-emerald-300 font-semibold border border-emerald-500/30">
+      <div className="bg-brand-900 px-3 py-1.5 text-center text-xs font-medium text-brand-100 flex items-center justify-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+        <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-emerald-300 font-semibold border border-emerald-500/30 text-[10px] sm:text-xs shrink-0">
           🚀 Admissions 2026-27 Open
         </span>
-        <span>All-India Mock Test Series with Instant Score & Detailed Explanations</span>
-        <a href="tel:+919876543210" className="hidden md:inline-flex items-center gap-1 text-white hover:underline ml-2">
+        <span className="hidden sm:inline truncate">All-India Mock Test Series with Instant Score & Detailed Explanations</span>
+        <a href="tel:+919876543210" className="hidden md:inline-flex items-center gap-1 text-white hover:underline ml-2 shrink-0">
           <PhoneCall className="w-3 h-3 text-amber-400" /> Helpline: +91 98765 43210
         </a>
       </div>
