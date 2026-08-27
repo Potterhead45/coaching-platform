@@ -19,7 +19,10 @@ import {
   HelpCircle,
   BarChart3,
   Flame,
-  Check
+  Check,
+  Target,
+  FileCheck,
+  PhoneCall
 } from 'lucide-react';
 import { formatCurrency, formatDuration } from '@/lib/utils';
 import ContactForm from '@/components/ContactForm';
@@ -52,125 +55,127 @@ export default async function HomePage() {
   });
 
   const stats = [
-    { label: 'Students Mentored', value: '15,000+', icon: Users, color: 'text-brand-600 bg-brand-50' },
-    { label: 'Total Mock Tests Taken', value: '85,000+', icon: Zap, color: 'text-amber-600 bg-amber-50' },
-    { label: 'Selection Success Rate', value: '98.4%', icon: Award, color: 'text-emerald-600 bg-emerald-50' },
-    { label: 'Average Score Boost', value: '+35%', icon: TrendingUp, color: 'text-indigo-600 bg-indigo-50' },
+    { label: 'Students Mentored', value: '15,000+', icon: Users, color: 'text-brand-700 bg-brand-50 border-brand-200' },
+    { label: 'Total Mock Tests Taken', value: '85,000+', icon: Zap, color: 'text-amber-600 bg-amber-50 border-amber-200' },
+    { label: 'Selection Success Rate', value: '98.4%', icon: Award, color: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+    { label: 'Average Score Growth', value: '+35%', icon: TrendingUp, color: 'text-blue-700 bg-blue-50 border-blue-200' },
   ];
 
   const toppers = [
-    { name: 'Aditya S.', exam: 'JEE Advanced', rank: 'AIR 42', score: '324/360', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80', quote: 'The real-time test timer and instant explanation of my silly mistakes helped me jump from AIR 1200 to AIR 42.' },
+    { name: 'Aditya S.', exam: 'JEE Advanced', rank: 'AIR 42', score: '324/360', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80', quote: 'The real-time test timer and instant step-by-step solutions of my incorrect answers helped me jump from AIR 1200 to AIR 42.' },
     { name: 'Sneha Roy', exam: 'NEET-UG', rank: 'AIR 88', score: '705/720', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&q=80', quote: 'Detailed post-test analytics identified my weak spots in Organic Chemistry and Genetics early on.' },
-    { name: 'Rohan Mehta', exam: 'Class 12 Boards', rank: '98.6%', score: 'Topper', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80', quote: 'Chapter-wise test series with step-marking scheme gave me immense confidence before the final exam.' },
+    { name: 'Rohan Mehta', exam: 'Class 12 Boards', rank: '98.6%', score: 'Topper', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80', quote: 'Chapter-wise test series with step-marking scheme gave me immense confidence before the final examination.' },
   ];
 
   return (
-    <div className="space-y-20 pb-20">
+    <div className="space-y-16 sm:space-y-24 pb-20 w-full overflow-x-hidden bg-slate-50">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-900 via-slate-900 to-slate-950 text-white pt-8 pb-20 sm:pt-16 sm:pb-28 lg:pt-20 lg:pb-32">
-        {/* Background glow effects */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[600px] h-[300px] bg-brand-500/20 blur-[100px] rounded-full pointer-events-none" />
+      <section className="relative overflow-hidden bg-slate-950 text-white pt-8 pb-20 sm:pt-16 sm:pb-28 lg:pt-20 lg:pb-32 border-b border-slate-800">
+        {/* Subtle Academic Grid & Glow */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[350px] bg-brand-600/15 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-400/20 text-brand-300 text-xs font-semibold max-w-full">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span className="truncate">India’s Advanced Exam Prep & CBT Simulator</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-amber-300 text-xs font-semibold max-w-full shadow-sm">
+                <Award className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span className="truncate">Premier Computer-Based Testing & Analytics Platform</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight sm:leading-[1.15] break-words">
-                Master Any Competitive Exam With <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-indigo-200 to-amber-300">Precision Mock Tests</span>
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight sm:leading-[1.15] text-slate-100 break-words">
+                Excel in Competitive Exams with <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-brand-300">Precision Mock Tests</span>
               </h1>
 
-              <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Experience the authentic NTA-style online exam interface with strict timers, instant automated scoring, and <strong>deep step-by-step explanations for every incorrect answer</strong>.
+              <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                Authentic NTA/CBT exam simulations with strict timers, positive & negative marking, and <strong className="text-white font-semibold">in-depth step-by-step solutions for every incorrect answer</strong>.
               </p>
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-1">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3.5 pt-1">
                 <Link
                   href="/tests"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/30 transition-all text-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/20 transition-all hover:scale-[1.02] text-sm"
                 >
-                  <Flame className="w-4 h-4 text-amber-300" />
+                  <Flame className="w-4 h-4 text-slate-950" />
                   Take a Free Mock Test
                 </Link>
 
                 <Link
                   href="/courses"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-all text-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-all text-sm"
                 >
-                  <BookOpen className="w-4 h-4 text-brand-400" />
+                  <BookOpen className="w-4 h-4 text-amber-400" />
                   Explore Courses & Syllabus
                 </Link>
               </div>
 
-              {/* Quick Demo Creds for testing - Responsive Card */}
-              <div className="p-3.5 sm:p-4 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 w-full max-w-full text-left space-y-2 overflow-hidden shadow-inner">
+              {/* Instant Demo Creds - Clean Academic Access Card */}
+              <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 w-full max-w-full text-left space-y-2 overflow-hidden shadow-md">
                 <div className="font-bold text-amber-300 flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" /> 1-Click Demo Logins (Try on Login Page):
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" /> 1-Click Demo Logins (Available on Login Screen):
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
-                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-700/50">
-                    <span className="text-slate-400 block font-semibold">Student Account:</span>
-                    <code className="text-brand-300 font-mono text-[10px] sm:text-[11px] break-all">student@apexcoaching.com</code>
+                  <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800">
+                    <span className="text-slate-400 block font-semibold text-[10px] uppercase tracking-wider">Student Candidate</span>
+                    <code className="text-amber-200 font-mono text-[11px] break-all">student@apexcoaching.com</code>
                     <span className="text-slate-400 block text-[10px]">pass: student123</span>
                   </div>
-                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-700/50">
-                    <span className="text-amber-400 block font-semibold">Admin Account:</span>
-                    <code className="text-amber-300 font-mono text-[10px] sm:text-[11px] break-all">admin@apexcoaching.com</code>
+                  <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800">
+                    <span className="text-amber-400 block font-semibold text-[10px] uppercase tracking-wider">Admin Faculty</span>
+                    <code className="text-amber-300 font-mono text-[11px] break-all">admin@apexcoaching.com</code>
                     <span className="text-slate-400 block text-[10px]">pass: admin123</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Card: Live Test Interface Preview */}
+            {/* Right Card: Authentic CBT Exam Simulator Preview */}
             <div className="lg:col-span-5 w-full">
-              <div className="relative rounded-2xl bg-slate-800/90 border border-slate-700 p-4 sm:p-6 shadow-2xl backdrop-blur-xl w-full">
-                <div className="flex items-center justify-between border-b border-slate-700 pb-3 mb-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    <span className="text-xs font-semibold text-slate-300 ml-1.5">CBT Exam Engine</span>
+              <div className="relative rounded-2xl bg-slate-900 border border-slate-800 p-4 sm:p-6 shadow-2xl backdrop-blur-xl w-full">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                    <span className="text-xs font-bold text-slate-200">CBT Exam Engine Simulator</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded bg-red-500/20 text-red-300 text-xs font-mono font-bold border border-red-500/30 flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> 00:29:45
+                  <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-xs font-mono font-bold border border-rose-500/30 flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-rose-400" /> 00:29:45
                   </span>
                 </div>
 
                 <div className="space-y-3 text-xs">
-                  <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-700">
-                    <p className="text-slate-400 font-medium text-[11px] mb-1">Question 03 of 30 • Physics</p>
+                  <div className="bg-slate-950/90 p-3.5 rounded-xl border border-slate-800">
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                      <span>Question 03 of 30 • Physics</span>
+                      <span className="text-emerald-400 font-semibold">+4 / -1 Mark</span>
+                    </div>
                     <p className="text-slate-100 font-semibold text-xs sm:text-sm leading-snug">
-                      A particle starts from rest with uniform acceleration a = 4 m/s². What is the distance in the 5th second?
+                      A particle starts from rest with uniform acceleration a = 4 m/s². What is the distance travelled in the 5th second?
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-700 text-slate-300">
+                    <div className="p-2.5 rounded-lg bg-slate-950/50 border border-slate-800 text-slate-300">
                       A) 16 meters
                     </div>
-                    <div className="p-2.5 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-200 font-semibold flex items-center justify-between">
+                    <div className="p-2.5 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-200 font-semibold flex items-center justify-between">
                       <span>B) 18 meters</span>
                       <Check className="w-4 h-4 text-emerald-400" />
                     </div>
-                    <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-700 text-slate-300">
+                    <div className="p-2.5 rounded-lg bg-slate-950/50 border border-slate-800 text-slate-300">
                       C) 20 meters
                     </div>
-                    <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-700 text-slate-300">
+                    <div className="p-2.5 rounded-lg bg-slate-950/50 border border-slate-800 text-slate-300">
                       D) 22 meters
                     </div>
                   </div>
 
-                  {/* Feature Pills */}
-                  <div className="pt-2 border-t border-slate-700/80 grid grid-cols-3 gap-1.5 text-center text-[10px] text-slate-400">
-                    <div className="p-1.5 bg-slate-900/60 rounded truncate">✓ Auto Grading</div>
-                    <div className="p-1.5 bg-slate-900/60 rounded truncate">✓ Error Analysis</div>
-                    <div className="p-1.5 bg-slate-900/60 rounded truncate">✓ AIR Rank Est.</div>
+                  {/* Feature Badges */}
+                  <div className="pt-2 border-t border-slate-800 grid grid-cols-3 gap-1.5 text-center text-[10px] text-slate-400">
+                    <div className="p-1.5 bg-slate-950 rounded border border-slate-800/80 truncate">✓ NTA Test Pattern</div>
+                    <div className="p-1.5 bg-slate-950 rounded border border-slate-800/80 truncate">✓ Error Solution Keys</div>
+                    <div className="p-1.5 bg-slate-950 rounded border border-slate-800/80 truncate">✓ All-India Rank Est.</div>
                   </div>
                 </div>
               </div>
@@ -179,18 +184,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Stats Counter Section */}
+      {/* Institutional Stats Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-16 relative z-20">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
-              <div key={i} className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-xl flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${stat.color}`}>
+              <div key={i} className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/90 shadow-lg shadow-slate-900/5 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 hover:border-slate-300 transition-colors">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 border ${stat.color}`}>
                   <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900">{stat.value}</h3>
+                  <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{stat.value}</h3>
                   <p className="text-[11px] sm:text-xs font-medium text-slate-500 leading-tight">{stat.label}</p>
                 </div>
               </div>
@@ -199,69 +204,69 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose Apex Mock Tests */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
-            The Smart Way to Prepare
+      {/* Academic Methodology / Why Apex */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="text-center max-w-3xl mx-auto space-y-2 mb-10 sm:mb-14">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-brand-800 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+            Scientific Exam Preparation
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
-            Why Standard Mock Tests Fail & How We Fix It
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            How Precision Mock Testing Builds Top Ranks
           </h2>
-          <p className="text-slate-600 text-base">
-            Taking tests without understanding your mistakes is useless. Our platform diagnoses your weak chapters with precision.
+          <p className="text-slate-600 text-xs sm:text-base leading-relaxed">
+            Taking tests without diagnosing your mistakes is ineffective. Our platform analyzes your weak concepts and provides instant explanations.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow space-y-4">
-            <div className="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all space-y-4">
+            <div className="w-12 h-12 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center shadow-sm">
               <Clock className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">Real Exam CBT Timer</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Experience the exact exam screen with color-coded question palette, section switching, and auto-submit on timeout.
+            <h3 className="text-lg font-bold text-slate-900">Standard CBT Exam Timer</h3>
+            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              Experience the actual exam interface with a live countdown timer, color-coded question palette, and automatic submission upon timeout.
             </p>
           </div>
 
-          <div className="p-8 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow space-y-4">
-            <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+          <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all space-y-4">
+            <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center shadow-sm">
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-slate-900">Explanations on Incorrect Answers</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Instantly view why your chosen option was wrong, with comprehensive step-by-step mathematical & conceptual solutions.
+            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              Instantly view why your chosen option was wrong, backed by comprehensive step-by-step mathematical derivations and conceptual explanations.
             </p>
           </div>
 
-          <div className="p-8 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow space-y-4">
-            <div className="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
+          <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all space-y-4">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center shadow-sm">
               <BarChart3 className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">Personalized Student Analytics</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Track your test scores, speed per question, negative marks lost, and performance progression over time.
+            <h3 className="text-lg font-bold text-slate-900">Student Progress Analytics</h3>
+            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              Track your test scores, accuracy rate, speed per question, negative marks lost, and performance growth across all exam attempts.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Featured Mock Tests */}
-      <section className="bg-slate-50 py-16 border-y border-slate-200">
+      {/* Featured Mock Tests Catalog */}
+      <section className="bg-slate-100/70 py-16 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
-                Practice & Benchmark
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-800 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+                Examination Series
               </span>
-              <h2 className="text-3xl font-extrabold text-slate-900 mt-2">Latest Mock Tests</h2>
-              <p className="text-slate-600 text-sm mt-1">
-                Full-length mock tests and chapter diagnostics crafted by top subject matter experts.
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">Active Online Mock Tests</h2>
+              <p className="text-slate-600 text-xs sm:text-sm mt-1">
+                Full-length mock tests and chapter diagnostics curated by premier subject matter experts.
               </p>
             </div>
             <Link
               href="/tests"
-              className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-600 hover:text-brand-700 group"
+              className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-800 hover:text-brand-900 group"
             >
               <span>View All Mock Tests</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -272,11 +277,11 @@ export default async function HomePage() {
             {mockTests.map((test) => (
               <div
                 key={test.id}
-                className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col justify-between group"
+                className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between group"
               >
                 <div className="p-6 space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase bg-brand-50 text-brand-700 border border-brand-200">
+                    <span className="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase bg-slate-100 text-slate-800 border border-slate-200">
                       {test.category}
                     </span>
                     {test.isFree ? (
@@ -291,7 +296,7 @@ export default async function HomePage() {
                   </div>
 
                   <div>
-                    <h3 className="font-bold text-slate-900 text-lg group-hover:text-brand-600 transition-colors line-clamp-2">
+                    <h3 className="font-bold text-slate-900 text-lg group-hover:text-brand-800 transition-colors line-clamp-2">
                       {test.title}
                     </h3>
                     <p className="text-slate-500 text-xs mt-2 line-clamp-2 leading-relaxed">
@@ -319,10 +324,10 @@ export default async function HomePage() {
                 <div className="p-6 pt-0">
                   <Link
                     href={`/test/${test.id}/take`}
-                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-semibold text-sm bg-slate-900 hover:bg-brand-600 text-white transition-colors"
+                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-bold text-sm bg-slate-900 hover:bg-brand-900 text-white transition-colors"
                   >
-                    <span>{test.isFree ? 'Start Free Test' : 'Enroll & Start'}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>{test.isFree ? 'Start Free Test' : 'Enroll & Start Test'}</span>
+                    <ArrowRight className="w-4 h-4 text-amber-400" />
                   </Link>
                 </div>
               </div>
@@ -331,21 +336,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Courses & Chapters Preview */}
+      {/* Courses & Chapters Syllabus */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
-              Syllabus & Structured Learning
+            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-800 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+              Structured Curriculum
             </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 mt-2">Comprehensive Courses</h2>
-            <p className="text-slate-600 text-sm mt-1">
-              Chapter-by-chapter mastery paths tailored for board & competitive exams.
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">Courses & Chapter Syllabus</h2>
+            <p className="text-slate-600 text-xs sm:text-sm mt-1">
+              Chapter-by-chapter mastery modules designed for board and entrance exams.
             </p>
           </div>
           <Link
             href="/courses"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-600 hover:text-brand-700 group"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-800 hover:text-brand-900 group"
           >
             <span>Browse All Courses & Chapters</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -359,29 +364,29 @@ export default async function HomePage() {
               className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="h-44 bg-slate-800 relative overflow-hidden">
+                <div className="h-44 bg-slate-900 relative overflow-hidden">
                   <img
                     src={course.thumbnail || 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80'}
                     alt={course.title}
-                    className="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-300"
                   />
-                  <span className="absolute top-3 left-3 bg-brand-600 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md shadow">
+                  <span className="absolute top-3 left-3 bg-slate-900/90 text-amber-300 text-[10px] font-bold uppercase px-2.5 py-1 rounded-md shadow border border-slate-700">
                     {course.targetExam}
                   </span>
                 </div>
 
                 <div className="p-6 space-y-3">
                   <h3 className="font-bold text-slate-900 text-lg line-clamp-1">{course.title}</h3>
-                  <p className="text-slate-600 text-xs line-clamp-2">{course.description}</p>
+                  <p className="text-slate-600 text-xs line-clamp-2 leading-relaxed">{course.description}</p>
 
                   <div className="pt-2">
                     <p className="text-[11px] font-bold uppercase text-slate-400 tracking-wider mb-1.5">
                       Chapters Included:
                     </p>
                     <ul className="space-y-1">
-                      {course.chapters.slice(0, 3).map((ch, idx) => (
+                      {course.chapters.slice(0, 3).map((ch) => (
                         <li key={ch.id} className="text-xs text-slate-700 flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-brand-600" />
                           <span className="truncate">{ch.title}</span>
                         </li>
                       ))}
@@ -392,12 +397,12 @@ export default async function HomePage() {
 
               <div className="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-4">
                 <div>
-                  <span className="text-xs text-slate-400 block">Course Fee</span>
+                  <span className="text-[11px] text-slate-400 block font-medium">Course Fee</span>
                   <span className="text-lg font-extrabold text-slate-900">{formatCurrency(course.price)}</span>
                 </div>
                 <Link
                   href={`/courses`}
-                  className="px-4 py-2 bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold rounded-xl text-xs transition-colors"
+                  className="px-4 py-2 bg-slate-900 hover:bg-brand-900 text-white font-semibold rounded-xl text-xs transition-colors"
                 >
                   View Syllabus
                 </Link>
@@ -408,32 +413,32 @@ export default async function HomePage() {
       </section>
 
       {/* Hall of Fame / Results */}
-      <section id="results" className="bg-slate-900 text-white py-16">
+      <section id="results" className="bg-slate-950 text-white py-16 sm:py-20 border-y border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
+          <div className="text-center max-w-3xl mx-auto space-y-2 mb-12">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
               Hall of Fame 2025-2026
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold">
-              Our Students Speak For Our Quality
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+              Our Student Results & Ranks
             </h2>
-            <p className="text-slate-400 text-sm">
-              Discover how regular mock testing with detailed error resolution transformed their scores.
+            <p className="text-slate-400 text-xs sm:text-sm">
+              Discover how structured mock testing with detailed error resolution transformed their scores.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {toppers.map((topper, i) => (
-              <div key={i} className="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 space-y-4">
+              <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-xl">
                 <div className="flex items-center gap-3">
                   <img
                     src={topper.image}
                     alt={topper.name}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-brand-500"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-amber-400/80"
                   />
                   <div>
                     <h4 className="font-bold text-white text-base">{topper.name}</h4>
-                    <p className="text-xs text-brand-300 font-semibold">
+                    <p className="text-xs text-slate-300 font-medium">
                       {topper.exam} • <span className="text-amber-400 font-bold">{topper.rank}</span>
                     </p>
                   </div>
@@ -454,42 +459,42 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Contact & Admissions Form */}
+      {/* Admissions Counseling Form */}
       <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12">
-            <div className="lg:col-span-5 bg-gradient-to-br from-brand-700 to-indigo-900 p-8 lg:p-12 text-white flex flex-col justify-between">
+            <div className="lg:col-span-5 bg-slate-950 p-8 lg:p-12 text-white flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800">
               <div className="space-y-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-200 bg-brand-600/30 px-3 py-1 rounded-full">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
                   Admissions & Counseling
                 </span>
-                <h3 className="text-3xl font-extrabold">Ready to Elevate Your Exam Scores?</h3>
-                <p className="text-brand-100 text-sm leading-relaxed">
-                  Get in touch with our academic counselors for batch timings, scholarship tests, and custom test series packages.
+                <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Ready to Elevate Your Exam Scores?</h3>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Connect with our academic counselors for batch timings, scholarship tests, and custom test series packages.
                 </p>
 
-                <div className="space-y-4 pt-4 text-sm text-brand-100">
+                <div className="space-y-4 pt-4 text-xs sm:text-sm text-slate-200">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-400">
                       <GraduationCap className="w-4 h-4" />
                     </div>
                     <span>Free 1-on-1 Strategy Session</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-emerald-400">
                       <CheckCircle2 className="w-4 h-4" />
                     </div>
-                    <span>Full Diagnostic Report</span>
+                    <span>Full Diagnostic Performance Report</span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-8 border-t border-brand-500/30 text-xs text-brand-200">
-                Helpline: <strong className="text-white">+91 98765 43210</strong>
+              <div className="pt-8 border-t border-slate-800 text-xs text-slate-400">
+                Helpline: <strong className="text-amber-300 font-semibold">+91 98765 43210</strong>
               </div>
             </div>
 
-            <div className="lg:col-span-7 p-8 lg:p-12">
+            <div className="lg:col-span-7 p-6 sm:p-8 lg:p-12 bg-white">
               <ContactForm />
             </div>
           </div>

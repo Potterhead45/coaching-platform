@@ -10,11 +10,11 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-lg">
-                <GraduationCap className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-white shadow-lg">
+                <GraduationCap className="w-6 h-6 text-amber-400" />
               </div>
-              <span className="text-xl font-bold tracking-tight text-white">
-                Apex Academy & Test Prep
+              <span className="text-xl font-extrabold tracking-tight text-white">
+                Apex Institute <span className="text-amber-400 text-sm font-semibold uppercase">Edu</span>
               </span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
