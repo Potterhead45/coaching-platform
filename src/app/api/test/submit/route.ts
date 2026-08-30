@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
+import { hasAccessToTest } from '@/lib/payment';
 
 export async function POST(request: Request) {
   try {
@@ -13,6 +14,15 @@ export async function POST(request: Request) {
 
     if (!mockTestId || !answers || !Array.isArray(answers)) {
       return NextResponse.json({ error: 'Invalid test submission payload' }, { status: 400 });
+    }
+
+    // Server-side security check: Confirm user is authorized to take/submit this test
+    const isAuthorized = await hasAccessToTest(user.id, mockTestId);
+    if (!isAuthorized) {
+      return NextResponse.json(
+        { error: 'Unauthorized. You must purchase or enroll in this mock test before submitting.' },
+        { status: 403 }
+      );
     }
 
     // Fetch the mock test along with all questions and their correct options
@@ -113,7 +123,7 @@ export async function POST(request: Request) {
         data: {
           userId: user.id,
           mockTestId: mockTest.id,
-          score: Math.max(totalScore, 0), // clamp score or keep real score
+          score: Math.max(totalScore, 0),
           totalMarks: mockTest.totalMarks,
           accuracy: parseFloat(accuracy.toFixed(1)),
           correctCount,

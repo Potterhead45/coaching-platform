@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   GraduationCap, 
   Award, 
@@ -17,10 +18,13 @@ import {
   Zap,
   Calendar,
   Layers,
-  Sparkles
+  Sparkles,
+  CreditCard,
+  Lock
 } from 'lucide-react';
 import { formatCurrency, formatDuration, formatTime } from '@/lib/utils';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { FadeIn, StaggerContainer, StaggerItem, HoverCard, CountUp } from '@/components/motion/MotionWrapper';
 
 interface StudentDashboardViewProps {
   user: any;
@@ -72,81 +76,107 @@ export default function StudentDashboardView({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
       {/* Welcome Card */}
-      <div className="bg-gradient-to-r from-slate-900 via-brand-950 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-semibold border border-brand-500/30">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Student Learning & Analytics Hub</span>
+      <FadeIn direction="down" duration={0.4}>
+        <div className="bg-gradient-to-r from-[#003135] via-[#024950] to-[#003135] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#0FA4AF]/30 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#003135]/90 text-[#AFDDE5] text-xs font-bold border border-[#0FA4AF]/40">
+              <Sparkles className="w-3.5 h-3.5 text-[#0FA4AF]" />
+              <span>Student Learning & Analytics Hub</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+              Welcome Back, {user.name}!
+            </h1>
+            <p className="text-[#AFDDE5]/80 text-xs sm:text-sm max-w-xl leading-relaxed">
+              Track your mock test scores, target exam benchmarks, and review in-depth solutions for every test attempt.
+            </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Welcome Back, {user.name}!
-          </h1>
-          <p className="text-slate-300 text-xs sm:text-sm max-w-xl">
-            Track your mock test scores, target exam benchmarks, and review in-depth solutions for every test attempt.
-          </p>
-        </div>
 
-        <div className="flex items-center gap-3 shrink-0">
-          <Link
-            href="/tests"
-            className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold shadow-lg shadow-brand-500/30 transition-all flex items-center gap-2"
-          >
-            <Flame className="w-4 h-4 text-amber-300" />
-            Take a New Mock Test
-          </Link>
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/tests"
+              className="px-6 py-3.5 rounded-2xl bg-[#964734] hover:bg-[#833B2B] text-white text-xs font-bold shadow-lg shadow-[#964734]/30 transition-all hover:scale-[1.02] flex items-center gap-2"
+            >
+              <Flame className="w-4 h-4 text-[#AFDDE5]" />
+              Take a New Mock Test
+            </Link>
+          </div>
         </div>
-      </div>
+      </FadeIn>
 
-      {/* Metric Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
-            <Zap className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-2xl font-black text-slate-900">{totalAttempts}</h3>
-            <p className="text-xs font-semibold text-slate-500">Tests Attempted</p>
-          </div>
-        </div>
+      {/* Metric Cards with Animated Counters */}
+      <StaggerContainer staggerChildren={0.08} className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <StaggerItem>
+          <HoverCard hoverY={-4}>
+            <div className="bg-white p-6 rounded-3xl border border-[#AFDDE5]/70 shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#024950]/10 text-[#024950] flex items-center justify-center shrink-0">
+                <Zap className="w-6 h-6 text-[#0FA4AF]" />
+              </div>
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#003135]">
+                  <CountUp value={totalAttempts} duration={1.2} />
+                </h3>
+                <p className="text-xs font-semibold text-slate-500">Tests Attempted</p>
+              </div>
+            </div>
+          </HoverCard>
+        </StaggerItem>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-            <CheckCircle2 className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-2xl font-black text-emerald-700">{averageAccuracy}%</h3>
-            <p className="text-xs font-semibold text-slate-500">Average Accuracy</p>
-          </div>
-        </div>
+        <StaggerItem>
+          <HoverCard hoverY={-4}>
+            <div className="bg-white p-6 rounded-3xl border border-[#AFDDE5]/70 shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-black text-emerald-700">
+                  <CountUp value={`${averageAccuracy}%`} duration={1.4} />
+                </h3>
+                <p className="text-xs font-semibold text-slate-500">Average Accuracy</p>
+              </div>
+            </div>
+          </HoverCard>
+        </StaggerItem>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-            <Award className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-2xl font-black text-slate-900">{averageScore}</h3>
-            <p className="text-xs font-semibold text-slate-500">Average Score</p>
-          </div>
-        </div>
+        <StaggerItem>
+          <HoverCard hoverY={-4}>
+            <div className="bg-white p-6 rounded-3xl border border-[#AFDDE5]/70 shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                <Award className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#003135]">
+                  <CountUp value={averageScore} duration={1.4} />
+                </h3>
+                <p className="text-xs font-semibold text-slate-500">Average Score</p>
+              </div>
+            </div>
+          </HoverCard>
+        </StaggerItem>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-            <TrendingUp className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-2xl font-black text-indigo-700">{topScore}</h3>
-            <p className="text-xs font-semibold text-slate-500">Personal Best Score</p>
-          </div>
-        </div>
-      </div>
+        <StaggerItem>
+          <HoverCard hoverY={-4}>
+            <div className="bg-white p-6 rounded-3xl border border-[#AFDDE5]/70 shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#AFDDE5]/30 text-[#024950] flex items-center justify-center shrink-0">
+                <TrendingUp className="w-6 h-6 text-[#0FA4AF]" />
+              </div>
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#024950]">
+                  <CountUp value={topScore} duration={1.2} />
+                </h3>
+                <p className="text-xs font-semibold text-slate-500">Personal Best</p>
+              </div>
+            </div>
+          </HoverCard>
+        </StaggerItem>
+      </StaggerContainer>
 
       {/* Tabs Navigation */}
       <div className="flex items-center gap-2 border-b border-slate-200 pb-2 overflow-x-auto">
         <button
           onClick={() => setActiveTab('OVERVIEW')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all ${
             activeTab === 'OVERVIEW'
-              ? 'bg-slate-900 text-white shadow-sm'
+              ? 'bg-[#003135] text-white shadow-sm'
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
@@ -155,42 +185,43 @@ export default function StudentDashboardView({
 
         <button
           onClick={() => setActiveTab('ATTEMPTS')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 ${
             activeTab === 'ATTEMPTS'
-              ? 'bg-slate-900 text-white shadow-sm'
+              ? 'bg-[#003135] text-white shadow-sm'
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <span>Test Attempts & Solutions</span>
-          <span className="px-1.5 py-0.2 bg-brand-100 text-brand-800 rounded-full text-[10px]">
+          <span className="px-2 py-0.5 bg-[#AFDDE5]/40 text-[#003135] rounded-full text-[10px] font-bold">
             {attempts.length}
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab('COURSES')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 ${
             activeTab === 'COURSES'
-              ? 'bg-slate-900 text-white shadow-sm'
+              ? 'bg-[#003135] text-white shadow-sm'
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <span>Enrolled Courses</span>
-          <span className="px-1.5 py-0.2 bg-emerald-100 text-emerald-800 rounded-full text-[10px]">
+          <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold">
             {enrollments.length}
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab('BILLING')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 ${
             activeTab === 'BILLING'
-              ? 'bg-slate-900 text-white shadow-sm'
+              ? 'bg-[#003135] text-white shadow-sm'
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
+          <CreditCard className="w-3.5 h-3.5" />
           <span>Payments & Invoices</span>
-          <span className="px-1.5 py-0.2 bg-slate-200 text-slate-700 rounded-full text-[10px]">
+          <span className="px-2 py-0.5 bg-slate-200 text-slate-700 rounded-full text-[10px] font-bold">
             {payments.length}
           </span>
         </button>
@@ -198,13 +229,18 @@ export default function StudentDashboardView({
 
       {/* Tab: OVERVIEW */}
       {activeTab === 'OVERVIEW' && (
-        <div className="space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="space-y-8"
+        >
           {/* Progress Chart */}
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#AFDDE5]/70 shadow-sm space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
               <div>
-                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5 text-brand-600" />
+                <h3 className="text-lg font-bold text-[#003135] flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-[#0FA4AF]" />
                   Score Progression Over Tests
                 </h3>
                 <p className="text-xs text-slate-500">Track your score improvement across successive mock tests.</p>
@@ -217,17 +253,17 @@ export default function StudentDashboardView({
                   <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="scoreGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.4} />
-                        <stop offset="95%" stopColor="#4f46e5" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#0FA4AF" stopOpacity={0.4} />
+                        <stop offset="95%" stopColor="#0FA4AF" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                     <XAxis dataKey="date" stroke="#94a3b8" fontSize={11} />
                     <YAxis stroke="#94a3b8" fontSize={11} />
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '12px' }}
+                      contentStyle={{ backgroundColor: '#003135', borderRadius: '14px', border: '1px solid #0FA4AF', color: '#fff', fontSize: '12px' }}
                     />
-                    <Area type="monotone" dataKey="score" stroke="#4f46e5" strokeWidth={3} fillOpacity={1} fill="url(#scoreGradient)" />
+                    <Area type="monotone" dataKey="score" stroke="#0FA4AF" strokeWidth={3} fillOpacity={1} fill="url(#scoreGradient)" />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -241,11 +277,11 @@ export default function StudentDashboardView({
           {/* Quick Recommended Mock Tests */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <Flame className="w-5 h-5 text-amber-500" />
+              <h3 className="text-lg font-bold text-[#003135] flex items-center gap-2">
+                <Flame className="w-5 h-5 text-[#964734]" />
                 Recommended Mock Tests
               </h3>
-              <Link href="/tests" className="text-xs font-bold text-brand-600 hover:underline">
+              <Link href="/tests" className="text-xs font-bold text-[#024950] hover:underline">
                 Browse All Tests →
               </Link>
             </div>
@@ -254,38 +290,43 @@ export default function StudentDashboardView({
               {availableTests.map((t) => (
                 <div
                   key={t.id}
-                  className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between gap-4 hover:border-brand-300 transition-colors"
+                  className="bg-white p-5 rounded-3xl border border-[#AFDDE5]/60 shadow-sm flex items-center justify-between gap-4 hover:border-[#0FA4AF] transition-colors"
                 >
                   <div className="space-y-1">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-brand-50 text-brand-700">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-[#AFDDE5]/30 text-[#024950]">
                       {t.category}
                     </span>
                     <h4 className="font-bold text-slate-900 text-sm line-clamp-1">{t.title}</h4>
                     <p className="text-[11px] text-slate-500">
-                      {t.durationMinutes} mins • {t._count.questions} Qs • {t.totalMarks} Marks
+                      {t.durationMinutes} mins • {t._count?.questions || 0} Qs • {t.totalMarks} Marks
                     </p>
                   </div>
 
                   <Link
                     href={`/test/${t.id}/take`}
-                    className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold transition-colors shrink-0 flex items-center gap-1"
+                    className="px-4 py-2 rounded-xl bg-[#024950] hover:bg-[#003135] text-white text-xs font-bold transition-colors shrink-0 flex items-center gap-1 shadow-sm"
                   >
                     <span>Launch</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#AFDDE5]" />
                   </Link>
                 </div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Tab: ATTEMPTS */}
       {activeTab === 'ATTEMPTS' && (
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white rounded-3xl border border-[#AFDDE5]/70 shadow-sm overflow-hidden"
+        >
           <div className="p-6 border-b border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900">Your Test History & Solution Keys</h3>
-            <p className="text-xs text-slate-500 mt-0.5">Click any attempt to inspect error breakdowns and solutions.</p>
+            <h3 className="text-lg font-bold text-[#003135]">Your Test History & Solution Keys</h3>
+            <p className="text-xs text-slate-500 mt-0.5">Click any attempt to inspect error breakdowns and step-by-step solutions.</p>
           </div>
 
           {attempts.length === 0 ? (
@@ -295,10 +336,10 @@ export default function StudentDashboardView({
           ) : (
             <div className="divide-y divide-slate-100">
               {attempts.map((att) => (
-                <div key={att.id} className="p-6 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div key={att.id} className="p-6 hover:bg-[#AFDDE5]/10 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-brand-50 text-brand-700 border border-brand-200">
+                      <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-[#AFDDE5]/30 text-[#024950] border border-[#AFDDE5]">
                         {att.mockTest.category}
                       </span>
                       <span className="text-xs text-slate-400">
@@ -321,14 +362,14 @@ export default function StudentDashboardView({
                   <div className="flex items-center gap-2 shrink-0">
                     <Link
                       href={`/test/${att.mockTestId}/result/${att.id}`}
-                      className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-sm transition-colors flex items-center gap-1.5"
+                      className="px-4 py-2.5 rounded-xl bg-[#024950] hover:bg-[#003135] text-white text-xs font-bold shadow-sm transition-colors flex items-center gap-1.5"
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#0FA4AF]" />
                       View Solutions
                     </Link>
                     <Link
                       href={`/test/${att.mockTestId}/take`}
-                      className="px-3.5 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition-colors"
+                      className="px-3.5 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition-colors"
                     >
                       Retake
                     </Link>
@@ -337,28 +378,33 @@ export default function StudentDashboardView({
               ))}
             </div>
           )}
-        </div>
+        </motion.div>
       )}
 
       {/* Tab: COURSES */}
       {activeTab === 'COURSES' && (
-        <div className="space-y-6">
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-            <h3 className="text-lg font-bold text-slate-900">Enrolled Courses</h3>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="space-y-6"
+        >
+          <div className="bg-white rounded-3xl border border-[#AFDDE5]/70 p-6 shadow-sm">
+            <h3 className="text-lg font-bold text-[#003135]">Enrolled Courses</h3>
             <p className="text-xs text-slate-500">Courses you have purchased or enrolled in.</p>
           </div>
 
           {enrollments.length === 0 ? (
-            <div className="bg-white rounded-2xl p-12 text-center border border-slate-200 text-slate-500 text-sm space-y-3">
+            <div className="bg-white rounded-3xl p-12 text-center border border-slate-200 text-slate-500 text-sm space-y-3">
               <p>You have not enrolled in any full courses yet.</p>
-              <Link href="/courses" className="inline-block px-4 py-2 bg-brand-600 text-white text-xs font-bold rounded-xl">
+              <Link href="/courses" className="inline-block px-5 py-2.5 bg-[#964734] hover:bg-[#833B2B] text-white text-xs font-bold rounded-xl transition-colors shadow-sm">
                 Explore Course Directory
               </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {enrollments.map((enr) => (
-                <div key={enr.id} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+                <div key={enr.id} className="bg-white rounded-3xl border border-[#AFDDE5]/70 p-6 shadow-sm space-y-4">
                   <div className="space-y-1">
                     <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-50 text-emerald-700">
                       {enr.course.targetExam}
@@ -368,10 +414,10 @@ export default function StudentDashboardView({
                   </div>
 
                   <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span className="text-slate-500">{enr.course.chapters.length} Chapters Available</span>
+                    <span className="text-slate-500">{enr.course.chapters?.length || 0} Chapters Available</span>
                     <Link
                       href="/courses"
-                      className="text-brand-600 font-bold hover:underline"
+                      className="text-[#024950] font-bold hover:underline"
                     >
                       View Syllabus →
                     </Link>
@@ -380,15 +426,20 @@ export default function StudentDashboardView({
               ))}
             </div>
           )}
-        </div>
+        </motion.div>
       )}
 
       {/* Tab: BILLING */}
       {activeTab === 'BILLING' && (
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white rounded-3xl border border-[#AFDDE5]/70 shadow-sm overflow-hidden"
+        >
           <div className="p-6 border-b border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900">Payment History & Tax Invoices</h3>
-            <p className="text-xs text-slate-500">Record of all paid mock tests and course enrollments.</p>
+            <h3 className="text-lg font-bold text-[#003135]">Payment History & Tax Invoices</h3>
+            <p className="text-xs text-slate-500">Official verified purchase records for all mock tests and course enrollments.</p>
           </div>
 
           {payments.length === 0 ? (
@@ -398,7 +449,7 @@ export default function StudentDashboardView({
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs text-slate-700">
-                <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-b border-slate-200">
+                <thead className="bg-[#AFDDE5]/20 text-[#003135] uppercase text-[10px] font-extrabold border-b border-[#AFDDE5]/40">
                   <tr>
                     <th className="p-4">Invoice #</th>
                     <th className="p-4">Item Purchased</th>
@@ -410,15 +461,15 @@ export default function StudentDashboardView({
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {payments.map((pay) => (
-                    <tr key={pay.id} className="hover:bg-slate-50">
-                      <td className="p-4 font-mono font-bold text-slate-900">{pay.invoiceNumber}</td>
+                    <tr key={pay.id} className="hover:bg-[#AFDDE5]/10 transition-colors">
+                      <td className="p-4 font-mono font-bold text-[#003135]">{pay.invoiceNumber}</td>
                       <td className="p-4 font-semibold text-slate-800">
                         {pay.mockTest?.title || pay.course?.title || 'Mock Test Series'}
                       </td>
-                      <td className="p-4 font-black text-slate-900">{formatCurrency(pay.amount)}</td>
-                      <td className="p-4 uppercase font-semibold text-slate-500">{pay.gateway}</td>
+                      <td className="p-4 font-black text-[#964734]">{formatCurrency(pay.amount)}</td>
+                      <td className="p-4 uppercase font-semibold text-slate-600">{pay.gateway}</td>
                       <td className="p-4">
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
                           {pay.status}
                         </span>
                       </td>
@@ -435,7 +486,7 @@ export default function StudentDashboardView({
               </table>
             </div>
           )}
-        </div>
+        </motion.div>
       )}
     </div>
   );

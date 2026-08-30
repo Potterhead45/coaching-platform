@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   GraduationCap, 
   Clock, 
@@ -166,7 +167,7 @@ export default function CbtTestEngine({ mockTest, user }: CbtTestEngineProps) {
 
   if (!currentQuestion) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-4">
+      <div className="min-h-screen flex items-center justify-center bg-[#003135] text-white p-4">
         <p>No questions found in this mock test.</p>
       </div>
     );
@@ -175,17 +176,17 @@ export default function CbtTestEngine({ mockTest, user }: CbtTestEngineProps) {
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans select-none">
       {/* Test Top Bar */}
-      <header className="bg-slate-900 border-b border-slate-800 px-3 sm:px-6 py-2.5 sm:py-3 sticky top-0 z-30 flex items-center justify-between gap-2 sm:gap-4 shadow-md w-full">
+      <header className="bg-[#003135] border-b border-[#024950] px-3 sm:px-6 py-2.5 sm:py-3 sticky top-0 z-30 flex items-center justify-between gap-2 sm:gap-4 shadow-md w-full">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold shrink-0">
-            <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#024950] border border-[#0FA4AF]/30 flex items-center justify-center text-[#AFDDE5] font-bold shrink-0">
+            <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-[#0FA4AF]" />
           </div>
           <div className="min-w-0">
             <h1 className="text-xs sm:text-base font-bold text-white leading-tight truncate">
               {mockTest.title}
             </h1>
-            <p className="text-[10px] sm:text-[11px] text-slate-400 truncate">
-              Candidate: <span className="text-brand-300 font-semibold">{user.name}</span> | Marking:{' '}
+            <p className="text-[10px] sm:text-[11px] text-[#AFDDE5]/70 truncate">
+              Candidate: <span className="text-[#AFDDE5] font-semibold">{user.name}</span> | Marking:{' '}
               <span className="text-emerald-400">+{currentQuestion.positiveMarks || 4}</span> /{' '}
               <span className="text-rose-400">-{currentQuestion.negativeMarks || 1}</span>
             </p>
@@ -204,7 +205,7 @@ export default function CbtTestEngine({ mockTest, user }: CbtTestEngineProps) {
           {/* Submit Test Button */}
           <button
             onClick={() => setSubmitModalOpen(true)}
-            className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg shadow-sm transition-colors flex items-center gap-1.5 shrink-0"
+            className="px-3 sm:px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-md transition-all flex items-center gap-1.5 shrink-0 hover:scale-[1.02]"
           >
             <Send className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Submit Test</span>
@@ -217,71 +218,80 @@ export default function CbtTestEngine({ mockTest, user }: CbtTestEngineProps) {
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left: Question Viewer & Actions */}
         <div className="lg:col-span-8 space-y-4">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
-            {/* Question Header */}
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <div className="flex items-center gap-2">
-                <span className="px-3 py-1 bg-brand-50 text-brand-700 rounded-lg text-xs font-extrabold border border-brand-200">
-                  Question {currentIndex + 1} of {totalQuestions}
-                </span>
-                <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">
-                  {currentQuestion.subject || 'General'}
-                </span>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuestion.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              className="bg-white rounded-3xl border border-[#AFDDE5]/60 shadow-sm p-6 sm:p-8 space-y-6"
+            >
+              {/* Question Header */}
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-1 bg-[#AFDDE5]/30 text-[#024950] rounded-xl text-xs font-extrabold border border-[#AFDDE5]">
+                    Question {currentIndex + 1} of {totalQuestions}
+                  </span>
+                  <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold">
+                    {currentQuestion.subject || 'General'}
+                  </span>
+                </div>
+
+                <div className="text-xs font-semibold text-slate-500">
+                  Correct: <span className="text-emerald-600 font-bold">+{currentQuestion.positiveMarks || 4}</span> | Wrong:{' '}
+                  <span className="text-rose-600 font-bold">-{currentQuestion.negativeMarks || 1}</span>
+                </div>
               </div>
 
-              <div className="text-xs font-semibold text-slate-500">
-                Correct: <span className="text-emerald-600 font-bold">+{currentQuestion.positiveMarks || 4}</span> | Wrong:{' '}
-                <span className="text-rose-600 font-bold">-{currentQuestion.negativeMarks || 1}</span>
+              {/* Question Text */}
+              <div className="text-slate-900 text-base sm:text-lg font-medium leading-relaxed">
+                {currentQuestion.questionText}
               </div>
-            </div>
 
-            {/* Question Text */}
-            <div className="text-slate-900 text-base sm:text-lg font-medium leading-relaxed">
-              {currentQuestion.questionText}
-            </div>
+              {/* Optional Question Image */}
+              {currentQuestion.imageUrl && (
+                <div className="rounded-2xl overflow-hidden border border-slate-200 max-w-md">
+                  <img src={currentQuestion.imageUrl} alt="Question figure" className="w-full h-auto" />
+                </div>
+              )}
 
-            {/* Optional Question Image */}
-            {currentQuestion.imageUrl && (
-              <div className="rounded-xl overflow-hidden border border-slate-200 max-w-md">
-                <img src={currentQuestion.imageUrl} alt="Question figure" className="w-full h-auto" />
-              </div>
-            )}
-
-            {/* Options List */}
-            <div className="space-y-3 pt-2">
-              {currentQuestion.options.map((option: any) => {
-                const isSelected = selectedAnswers[currentQuestion.id] === option.id;
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => handleOptionSelect(option.id)}
-                    className={`w-full text-left p-4 rounded-xl border-2 transition-all flex items-start gap-3.5 ${
-                      isSelected
-                        ? 'border-brand-600 bg-brand-50/70 shadow-sm ring-1 ring-brand-500'
-                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white'
-                    }`}
-                  >
-                    <span
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${
+              {/* Options List */}
+              <div className="space-y-3 pt-2">
+                {currentQuestion.options.map((option: any) => {
+                  const isSelected = selectedAnswers[currentQuestion.id] === option.id;
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => handleOptionSelect(option.id)}
+                      className={`w-full text-left p-4 rounded-2xl border-2 transition-all flex items-start gap-3.5 ${
                         isSelected
-                          ? 'bg-brand-600 text-white shadow-sm'
-                          : 'bg-slate-100 text-slate-700 border border-slate-300'
+                          ? 'border-[#024950] bg-[#AFDDE5]/20 shadow-sm ring-1 ring-[#024950]'
+                          : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white'
                       }`}
                     >
-                      {option.optionLabel}
-                    </span>
-                    <span className="text-sm font-medium text-slate-800 pt-0.5 leading-snug">
-                      {option.optionText}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+                      <span
+                        className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-extrabold shrink-0 ${
+                          isSelected
+                            ? 'bg-[#024950] text-white shadow-sm'
+                            : 'bg-slate-100 text-slate-700 border border-slate-300'
+                        }`}
+                      >
+                        {option.optionLabel}
+                      </span>
+                      <span className="text-sm font-medium text-slate-800 pt-0.5 leading-snug">
+                        {option.optionText}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Action Toolbar */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-wrap items-center justify-between gap-3">
+          <div className="bg-white rounded-3xl border border-[#AFDDE5]/60 p-4 shadow-sm flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <button
                 onClick={handleToggleMarkForReview}
@@ -317,7 +327,7 @@ export default function CbtTestEngine({ mockTest, user }: CbtTestEngineProps) {
               <button
                 onClick={handleSaveAndNext}
                 disabled={currentIndex === totalQuestions - 1}
-                className="px-6 py-2.5 rounded-xl text-xs font-bold bg-brand-600 hover:bg-brand-700 text-white transition-colors flex items-center gap-1 shadow-sm disabled:opacity-40"
+                className="px-6 py-2.5 rounded-xl text-xs font-bold bg-[#024950] hover:bg-[#003135] text-white transition-colors flex items-center gap-1 shadow-sm disabled:opacity-40"
               >
                 <span>Save & Next</span>
                 <ChevronRight className="w-4 h-4" />
@@ -337,81 +347,89 @@ export default function CbtTestEngine({ mockTest, user }: CbtTestEngineProps) {
         </div>
       </div>
 
-      {/* Confirmation Submission Modal */}
-      {submitModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-in fade-in">
-          <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
-            <div className="p-6 bg-slate-900 text-white flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Send className="w-5 h-5 text-emerald-400" />
-                <h3 className="text-lg font-bold">Submit Mock Test?</h3>
-              </div>
-              <button
-                onClick={() => setSubmitModalOpen(false)}
-                disabled={submitting}
-                className="p-1 rounded-lg text-slate-400 hover:text-white"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="p-6 space-y-5">
-              <p className="text-xs text-slate-600">
-                Are you sure you want to finish this test? Once submitted, your score will be calculated immediately and detailed solutions will be revealed.
-              </p>
-
-              {/* Stats Summary */}
-              <div className="grid grid-cols-3 gap-3 text-center">
-                <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-200">
-                  <span className="text-xl font-black text-emerald-700">{answeredCount}</span>
-                  <span className="block text-[11px] font-semibold text-emerald-800">Answered</span>
+      {/* Confirmation Submission Modal with Motion */}
+      <AnimatePresence>
+        {submitModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.93 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.93 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-[#AFDDE5]/60 overflow-hidden"
+            >
+              <div className="p-6 bg-gradient-to-br from-[#003135] to-[#024950] text-white flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Send className="w-5 h-5 text-[#AFDDE5]" />
+                  <h3 className="text-lg font-bold">Submit Mock Test?</h3>
                 </div>
-                <div className="p-3 bg-rose-50 rounded-2xl border border-rose-200">
-                  <span className="text-xl font-black text-rose-700">{unattemptedCount}</span>
-                  <span className="block text-[11px] font-semibold text-rose-800">Unanswered</span>
-                </div>
-                <div className="p-3 bg-purple-50 rounded-2xl border border-purple-200">
-                  <span className="text-xl font-black text-purple-700">{markedCount}</span>
-                  <span className="block text-[11px] font-semibold text-purple-800">Review Mark</span>
-                </div>
-              </div>
-
-              {submitError && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 shrink-0" />
-                  <span>{submitError}</span>
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 gap-3 pt-2">
                 <button
-                  type="button"
                   onClick={() => setSubmitModalOpen(false)}
                   disabled={submitting}
-                  className="py-3 px-4 rounded-xl border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors"
+                  className="p-1.5 rounded-xl text-slate-400 hover:text-white"
                 >
-                  Resume Test
-                </button>
-                <button
-                  type="button"
-                  onClick={handleSubmitTest}
-                  disabled={submitting}
-                  className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-lg shadow-emerald-600/20 transition-all flex items-center justify-center gap-2"
-                >
-                  {submitting ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Grading Answers...
-                    </>
-                  ) : (
-                    'Confirm & Submit'
-                  )}
+                  <X className="w-5 h-5" />
                 </button>
               </div>
-            </div>
+
+              <div className="p-6 space-y-5">
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Are you sure you want to finish this test? Once submitted, your score will be calculated immediately and detailed step-by-step solutions will be revealed.
+                </p>
+
+                {/* Stats Summary */}
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-200">
+                    <span className="text-xl font-black text-emerald-700">{answeredCount}</span>
+                    <span className="block text-[11px] font-semibold text-emerald-800">Answered</span>
+                  </div>
+                  <div className="p-3 bg-rose-50 rounded-2xl border border-rose-200">
+                    <span className="text-xl font-black text-rose-700">{unattemptedCount}</span>
+                    <span className="block text-[11px] font-semibold text-rose-800">Unanswered</span>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded-2xl border border-purple-200">
+                    <span className="text-xl font-black text-purple-700">{markedCount}</span>
+                    <span className="block text-[11px] font-semibold text-purple-800">Review Mark</span>
+                  </div>
+                </div>
+
+                {submitError && (
+                  <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-rose-700 text-xs flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 shrink-0" />
+                    <span>{submitError}</span>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-2 gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setSubmitModalOpen(false)}
+                    disabled={submitting}
+                    className="py-3 px-4 rounded-xl border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors"
+                  >
+                    Resume Test
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleSubmitTest}
+                    disabled={submitting}
+                    className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-lg shadow-emerald-600/20 transition-all flex items-center justify-center gap-2"
+                  >
+                    {submitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Grading Answers...</span>
+                      </>
+                    ) : (
+                      'Confirm & Submit'
+                    )}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }
